@@ -1,0 +1,10 @@
+//
+// Created by scolton on 10/8/21.
+//
+
+#ifndef MSP430_EMULATOR_ADC_SIGNALS_H
+#define MSP430_EMULATOR_ADC_SIGNALS_H
+
+
+
+#endif //MSP430_EMULATOR_ADC_SIGNALS_H

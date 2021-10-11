@@ -1,0 +1,12 @@
+//
+// Created by scolton on 10/8/21.
+//
+
+#ifndef MSP430_EMULATOR_MSP430FR5994_H
+#define MSP430_EMULATOR_MSP430FR5994_H
+
+namespace MSP430 {
+
+}
+
+#endif //MSP430_EMULATOR_MSP430FR5994_H
