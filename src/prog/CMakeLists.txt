@@ -1,1 +1,1 @@
-add_library(elf elf.cpp)
+add_library(prog elf.cpp isa/instruction_formats.cpp)

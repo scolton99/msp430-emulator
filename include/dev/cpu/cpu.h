@@ -5,31 +5,53 @@
 #ifndef MSP430_EMULATOR_CPU_H
 #define MSP430_EMULATOR_CPU_H
 
+#include "register.h"
+
 namespace MSP430 {
-  typedef struct {
-    int value;
-  } register_t;
+  class Package;
 
-  class CPU {
+  class ICPU {
+    template <typename msp430_size_t>
+    friend class InstructionFormatI;
+
+    friend class InstructionFormatII;
+  protected:
+    virtual IRegister* resolve_register(uint8_t) = 0;
   public:
-    const register_t r0;
-    const register_t r1;
-    const register_t r2;
-    const register_t r3;
-    const register_t r4;
-    const register_t r5;
-    const register_t r6;
-    const register_t r7;
-    const register_t r8;
-    const register_t r9;
-    const register_t r10;
-    const register_t r11;
-    const register_t r12;
-    const register_t r13;
-    const register_t r14;
-    const register_t r15;
+    virtual void tick() = 0;
+    virtual MSP430::IRegister* get_pc() = 0;
+    virtual MSP430::IRegister* get_sr() = 0;
+    virtual MSP430::IRegister* get_sp() = 0;
+  };
 
-    void tick();
+  class CPUX : public ICPU {
+  private:
+    RegisterX* r0 ;
+    RegisterX* r1 ;
+    RegisterX* r2 ;
+    RegisterX* r3 ;
+    RegisterX* r4 ;
+    RegisterX* r5 ;
+    RegisterX* r6 ;
+    RegisterX* r7 ;
+    RegisterX* r8 ;
+    RegisterX* r9 ;
+    RegisterX* r10;
+    RegisterX* r11;
+    RegisterX* r12;
+    RegisterX* r13;
+    RegisterX* r14;
+    RegisterX* r15;
+    Package*   package;
+  protected:
+    IRegister* resolve_register(uint8_t) override;
+  public:
+    CPUX(Package*);
+    ~CPUX();
+    void tick() override;
+    MSP430::IRegister* get_pc() override;
+    MSP430::IRegister* get_sr() override;
+    MSP430::IRegister* get_sp() override;
   };
 }
 

@@ -11,11 +11,10 @@
 
 namespace ELF {
   class ELFObject {
-  private:
+  public:
     Elf32_Ehdr                     elf_header;
     std::vector<Elf32_Phdr>        program_headers;
     std::vector<std::vector<char>> content;
-  public:
     static void fill(ELFObject* elf, const std::string& filename);
   };
 }
