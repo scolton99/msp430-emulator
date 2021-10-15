@@ -117,6 +117,9 @@ namespace MSP430 {
   class ADDAInstruction;
 
   template <typename msp430_size_t>
+  class CALLAInstruction;
+
+  template <typename msp430_size_t>
   class CMPAInstruction;
 
   template <typename msp430_size_t>

@@ -10,10 +10,10 @@ TEST(RegisterTest, GPRegisterXTest) {
   MSP430::GPRegisterX reg;
 
   reg.set_value(0x32);
-  EXPECT_EQ(reg.get_value(0x0), 0x32);
+  EXPECT_EQ(reg.get_value(0x0, 0x4), 0x32);
 
   reg.set_value(INT32_MAX);
-  EXPECT_EQ(reg.get_value(0x0), 0xFFFFF);
+  EXPECT_EQ(reg.get_value(0x0, 0x4), 0xFFFFF);
 }
 
 TEST(RegisterTest, SRRegisterXTest) {
@@ -31,7 +31,7 @@ TEST(RegisterTest, SRRegisterXTest) {
   EXPECT_EQ(reg.Z(), 0);
   EXPECT_EQ(reg.C(), 1);
 
-  EXPECT_THROW_MSG(reg.get_value(0b100),
+  EXPECT_THROW_MSG(reg.get_value(0b100, 0x4),
                    std::runtime_error,
                    "Invalid As value for SP/CG1");
 
@@ -45,7 +45,7 @@ TEST(RegisterTest, SRRegisterXTest) {
   reg.setZ();
   reg.clrC();
 
-  EXPECT_EQ(reg.get_value(0b00), 0b010101010);
+  EXPECT_EQ(reg.get_value(0b00, 0x4), 0b010101010);
 
   reg.setV();
   EXPECT_EQ(reg.V(), 1);
@@ -80,7 +80,7 @@ TEST(RegisterTest, SRRegisterXTest) {
   reg.setN(0);
   reg.setC(0);
 
-  EXPECT_EQ(reg.get_value(0b00), 0);
+  EXPECT_EQ(reg.get_value(0b00, 0x4), 0);
 }
 
 TEST(RegisterTest, CG1RegisterXTest) {
@@ -88,10 +88,10 @@ TEST(RegisterTest, CG1RegisterXTest) {
 
   reg.set_value(0xABCD);
 
-  EXPECT_EQ(reg.get_value(0b00), 0xABCD);
-  EXPECT_EQ(reg.get_value(0b01), 0);
-  EXPECT_EQ(reg.get_value(0b10), 0x4);
-  EXPECT_EQ(reg.get_value(0b11), 0x8);
+  EXPECT_EQ(reg.get_value(0b00, 0x4), 0xABCD);
+  EXPECT_EQ(reg.get_value(0b01, 0x4), 0);
+  EXPECT_EQ(reg.get_value(0b10, 0x4), 0x4);
+  EXPECT_EQ(reg.get_value(0b11, 0x4), 0x8);
 }
 
 TEST(RegisterTest, CG2RegisterXTest) {
@@ -100,12 +100,12 @@ TEST(RegisterTest, CG2RegisterXTest) {
   EXPECT_THROW_MSG(reg.set_value(0x1234),
                    std::runtime_error,
                    "Can't set CG2 value");
-  EXPECT_THROW_MSG(reg.get_value(0b100),
+  EXPECT_THROW_MSG(reg.get_value(0b100, 0x4),
                    std::runtime_error,
                    "Invalid value for As in CG register");
 
-  EXPECT_EQ(reg.get_value(0b00), 0);
-  EXPECT_EQ(reg.get_value(0b01), 0x1);
-  EXPECT_EQ(reg.get_value(0b10), 0x2);
-  EXPECT_EQ(reg.get_value(0b11), 0xFFFFF);
+  EXPECT_EQ(reg.get_value(0b00, 0x4), 0);
+  EXPECT_EQ(reg.get_value(0b01, 0x4), 0x1);
+  EXPECT_EQ(reg.get_value(0b10, 0x4), 0x2);
+  EXPECT_EQ(reg.get_value(0b11, 0x4), 0xFFFFF);
 }

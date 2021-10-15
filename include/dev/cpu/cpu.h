@@ -11,10 +11,7 @@ namespace MSP430 {
   class Package;
 
   class ICPU {
-    template <typename msp430_size_t>
-    friend class InstructionFormatI;
-
-    friend class InstructionFormatII;
+    friend class ExtensionWord;
   protected:
     virtual IRegister* resolve_register(uint8_t) = 0;
   public:
@@ -46,7 +43,7 @@ namespace MSP430 {
   protected:
     IRegister* resolve_register(uint8_t) override;
   public:
-    CPUX(Package*);
+    explicit CPUX(Package*);
     ~CPUX();
     void tick() override;
     MSP430::IRegister* get_pc() override;

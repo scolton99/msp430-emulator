@@ -18,7 +18,7 @@ namespace MSP430 {
   private:
     TinyRAM tiny_ram;
   public:
-    MSP430FR5994() : Package(new CPUX()) { }
+    MSP430FR5994() : Package(new CPUX(this)) { }
     void init() override;
   };
 }

@@ -5,51 +5,54 @@
 #ifndef MSP430_EMULATOR_EXECUTE_H
 #define MSP430_EMULATOR_EXECUTE_H
 
-#include "prog/isa/instruction.h"
+#include "dev/model/package.h"
+#include "prog/isa/visitor.h"
+#include "prog/isa/instruction_fwd.h"
 
 namespace MSP430 {
-  class InstructionExecutionVisitor : public InstructionVisitor {
+  template <typename msp430_size_t>
+  class InstructionExecutionVisitor : public InstructionVisitor<msp430_size_t> {
   public:
-    InstructionExecutionVisitor(Package* p) : InstructionVisitor(p) { }
+    explicit InstructionExecutionVisitor(Package* p) : InstructionVisitor<msp430_size_t>(p) { }
 
-    void visit(ADDInstruction&   instr) override;
-    void visit(ADDCInstruction&  instr) override;
-    void visit(ANDInstruction&   instr) override;
-    void visit(BICInstruction&   instr) override;
-    void visit(BITInstruction&   instr) override;
-    void visit(BISInstruction&   instr) override;
-    void visit(CMPInstruction&   instr) override;
-    void visit(DADDInstruction&  instr) override;
-    void visit(MOVInstruction&   instr) override;
-    void visit(SUBInstruction&   instr) override;
-    void visit(SUBCInstruction&  instr) override;
-    void visit(XORInstruction&   instr) override;
-    void visit(CALLInstruction&  instr) override;
-    void visit(PUSHInstruction&  instr) override;
-    void visit(RETIInstruction&  instr) override;
-    void visit(RRAInstruction&   instr) override;
-    void visit(RRCInstruction&   instr) override;
-    void visit(SWPBInstruction&  instr) override;
-    void visit(SXTInstruction&   instr) override;
-    void visit(JCInstruction&    instr) override;
-    void visit(JEQInstruction&   instr) override;
-    void visit(JGEInstruction&   instr) override;
-    void visit(JLInstruction&    instr) override;
-    void visit(JMPInstruction&   instr) override;
-    void visit(JNCInstruction&   instr) override;
-    void visit(JNInstruction&    instr) override;
-    void visit(JNEInstruction&   instr) override;
-    void visit(POPMInstruction&  instr) override;
-    void visit(PUSHMInstruction& instr) override;
-    void visit(RLAMInstruction&  instr) override;
-    void visit(RRAMInstruction&  instr) override;
-    void visit(RRCMInstruction&  instr) override;
-    void visit(RRUMInstruction&  instr) override;
-    void visit(RRUXInstruction&  instr) override;
-    void visit(ADDAInstruction&  instr) override;
-    void visit(CMPAInstruction&  instr) override;
-    void visit(MOVAInstruction&  instr) override;
-    void visit(SUBAInstruction&  instr) override;
+    void visit(ADDInstruction<msp430_size_t>&   instr) override;
+    void visit(ADDCInstruction<msp430_size_t>&  instr) override;
+    void visit(ANDInstruction<msp430_size_t>&   instr) override;
+    void visit(BICInstruction<msp430_size_t>&   instr) override;
+    void visit(BITInstruction<msp430_size_t>&   instr) override;
+    void visit(BISInstruction<msp430_size_t>&   instr) override;
+    void visit(CMPInstruction<msp430_size_t>&   instr) override;
+    void visit(DADDInstruction<msp430_size_t>&  instr) override;
+    void visit(MOVInstruction<msp430_size_t>&   instr) override;
+    void visit(SUBInstruction<msp430_size_t>&   instr) override;
+    void visit(SUBCInstruction<msp430_size_t>&  instr) override;
+    void visit(XORInstruction<msp430_size_t>&   instr) override;
+    void visit(CALLInstruction<msp430_size_t>&  instr) override;
+    void visit(PUSHInstruction<msp430_size_t>&  instr) override;
+    void visit(RETIInstruction<msp430_size_t>&  instr) override;
+    void visit(RRAInstruction<msp430_size_t>&   instr) override;
+    void visit(RRCInstruction<msp430_size_t>&   instr) override;
+    void visit(SWPBInstruction<msp430_size_t>&  instr) override;
+    void visit(SXTInstruction<msp430_size_t>&   instr) override;
+    void visit(JCInstruction<msp430_size_t>&    instr) override;
+    void visit(JEQInstruction<msp430_size_t>&   instr) override;
+    void visit(JGEInstruction<msp430_size_t>&   instr) override;
+    void visit(JLInstruction<msp430_size_t>&    instr) override;
+    void visit(JMPInstruction<msp430_size_t>&   instr) override;
+    void visit(JNCInstruction<msp430_size_t>&   instr) override;
+    void visit(JNInstruction<msp430_size_t>&    instr) override;
+    void visit(JNEInstruction<msp430_size_t>&   instr) override;
+    void visit(POPMInstruction<msp430_size_t>&  instr) override;
+    void visit(PUSHMInstruction<msp430_size_t>& instr) override;
+    void visit(RLAMInstruction<msp430_size_t>&  instr) override;
+    void visit(RRAMInstruction<msp430_size_t>&  instr) override;
+    void visit(RRCMInstruction<msp430_size_t>&  instr) override;
+    void visit(RRUMInstruction<msp430_size_t>&  instr) override;
+    void visit(RRUXInstruction<msp430_size_t>&  instr) override;
+    void visit(ADDAInstruction<msp430_size_t>&  instr) override;
+    void visit(CMPAInstruction<msp430_size_t>&  instr) override;
+    void visit(MOVAInstruction<msp430_size_t>&  instr) override;
+    void visit(SUBAInstruction<msp430_size_t>&  instr) override;
   };
 }
 

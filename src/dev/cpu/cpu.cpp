@@ -99,15 +99,44 @@ MSP430::IRegister* MSP430::CPUX::get_sr() {
 
 void MSP430::CPUX::tick() {
   static int instruction_ticks_remaining = 0;
-  static InstructionExecutionVisitor visitor(this->package);
 
   if (instruction_ticks_remaining == 0) {
-    MSP430::msp430_addr_t instr_addr = this->get_pc()->get_value(0, sizeof(msp430_addr_t));
+    msp430_addr_t instr_addr = this->get_pc()->get_value(0, sizeof(msp430_addr_t));
 
-    MSP430::Instruction* instruction = instruction_decode(this->package, instr_addr);
-    instruction_ticks_remaining      = instruction->get_execution_time();
+    msp430_word_t ext_word, raw_instr;
+    fill_instruction_and_ext(this->package, instr_addr, ext_word, raw_instr);
 
-    instruction->accept(visitor);
+    InstructionWidth width = next_instruction_width(ext_word, raw_instr);
+
+    switch (width) {
+      case BYTE: {
+        InstructionExecutionVisitor<msp430_byte_t> visitor(this->package);
+        MSP430::Instruction<msp430_byte_t>*        instruction = instruction_decode<msp430_byte_t>(this->package,
+                                                                                                   instr_addr);
+
+        instruction_ticks_remaining = instruction->get_execution_time();
+        instruction->accept(visitor);
+        break;
+      }
+      case WORD: {
+        InstructionExecutionVisitor<msp430_word_t> visitor(this->package);
+        MSP430::Instruction<msp430_word_t>*        instruction = instruction_decode<msp430_word_t>(this->package,
+                                                                                                   instr_addr);
+
+        instruction_ticks_remaining      = instruction->get_execution_time();
+        instruction->accept(visitor);
+        break;
+      }
+      case ADDRESS_WORD: {
+        InstructionExecutionVisitor<msp430_addr_word_t> visitor(this->package);
+        MSP430::Instruction<msp430_addr_word_t>*        instruction = instruction_decode<msp430_addr_word_t>(this->package,
+                                                                                                             instr_addr);
+
+        instruction_ticks_remaining      = instruction->get_execution_time();
+        instruction->accept(visitor);
+        break;
+      }
+    }
   } else {
     --instruction_ticks_remaining;
   }

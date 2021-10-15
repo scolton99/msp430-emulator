@@ -1,0 +1,1 @@
+add_library(peripheral tinyram.cpp)

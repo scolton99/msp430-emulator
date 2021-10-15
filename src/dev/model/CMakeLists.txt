@@ -1,0 +1,1 @@
+add_library(model msp430fr5994.cpp package.cpp)
