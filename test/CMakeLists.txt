@@ -7,16 +7,18 @@ FetchContent_Declare(
 set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
 FetchContent_MakeAvailable(googletest)
 
-add_subdirectory(dev)
-add_subdirectory(prog)
+include_directories(util)
+
+add_subdirectory(integration)
+add_subdirectory(unit)
 
 enable_testing()
 include(GoogleTest)
 
-add_executable(msp430_test main.cpp test_utils.h)
+add_executable(msp430_test main.cpp)
 target_link_libraries(msp430_test msp430_lib
-                                  -Wl,--whole-archive dev_test
-                                  prog_test
+                                  -Wl,--whole-archive unit_tests
+                                  integration_tests
                                   -Wl,--no-whole-archive)
 
 gtest_discover_tests(msp430_test)

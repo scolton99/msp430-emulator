@@ -1,1 +1,11 @@
-add_library(prog elf.cpp isa/instruction_utils.cpp)
+add_library(prog
+            bin.cpp
+            isa/instruction.cpp
+            isa/instruction_utils.cpp
+            isa/format_i.cpp
+            isa/format_ii.cpp
+            isa/format_jump.cpp
+            isa/format_rxxm.cpp
+            isa/format_address.cpp
+            isa/format_calla.cpp
+            isa/format_pushm_popm.cpp)

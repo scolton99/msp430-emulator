@@ -141,3 +141,31 @@ void MSP430::CPUX::tick() {
     --instruction_ticks_remaining;
   }
 }
+
+MSP430::msp430_word_t MSP430::CPUX::read_word_and_inc_pc() {
+  msp430_addr_t pc   = this->get_pc()->get_value(0, 0x4);
+  msp430_word_t word = this->package->get_memory()->get_word(pc);
+
+  this->get_pc()->set_value(pc + 0x2, sizeof(msp430_addr_t));
+
+  return word;
+}
+
+
+int32_t MSP430::CPUX::addr_word_sxt_32(msp430_addr_word_t addr_word) {
+  auto ret = static_cast<int32_t>(addr_word);
+
+  if (ret & 0x00080000)
+    ret |= (signed) 0xFFF80000;
+
+  return ret;
+}
+
+int32_t MSP430::CPUX::word_sxt_32(msp430_word_t word) {
+  auto ret = static_cast<int16_t>(word);
+
+  if (ret & 0x8000)
+    ret |= (signed) 0xFFFF8000;
+
+  return ret;
+}

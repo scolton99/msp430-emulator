@@ -6,22 +6,32 @@
 #define MSP430_EMULATOR_CPU_H
 
 #include "register.h"
+#include "types.h"
+
+namespace Testing {
+  class CPUXTest;
+}
 
 namespace MSP430 {
   class Package;
 
+  template <typename msp430_size_t>
+  class Instruction;
+
   class ICPU {
-    friend class ExtensionWord;
-  protected:
-    virtual IRegister* resolve_register(uint8_t) = 0;
   public:
     virtual void tick() = 0;
-    virtual MSP430::IRegister* get_pc() = 0;
-    virtual MSP430::IRegister* get_sr() = 0;
-    virtual MSP430::IRegister* get_sp() = 0;
+    virtual MSP430::IRegister* get_pc()                             = 0;
+    virtual MSP430::IRegister* get_sr()                             = 0;
+    virtual MSP430::IRegister* get_sp()                             = 0;
+    virtual msp430_word_t      read_word_and_inc_pc()               = 0;
+    virtual int32_t            addr_word_sxt_32(msp430_addr_word_t) = 0;
+    virtual int32_t            word_sxt_32(msp430_word_t)           = 0;
+    virtual IRegister*         resolve_register(uint8_t)            = 0;
   };
 
   class CPUX : public ICPU {
+    friend class Testing::CPUXTest;
   private:
     RegisterX* r0 ;
     RegisterX* r1 ;
@@ -46,9 +56,12 @@ namespace MSP430 {
     explicit CPUX(Package*);
     ~CPUX();
     void tick() override;
-    MSP430::IRegister* get_pc() override;
-    MSP430::IRegister* get_sr() override;
-    MSP430::IRegister* get_sp() override;
+    MSP430::IRegister* get_pc()                             override;
+    MSP430::IRegister* get_sr()                             override;
+    MSP430::IRegister* get_sp()                             override;
+    msp430_word_t      read_word_and_inc_pc()               override;
+    int32_t            addr_word_sxt_32(msp430_addr_word_t) override;
+    int32_t            word_sxt_32(msp430_word_t)           override;
   };
 }
 

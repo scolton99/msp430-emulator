@@ -3,6 +3,7 @@
 //
 
 #include "dev/cpu/register.h"
+#include "types.h"
 
 uint32_t MSP430::RegisterX::get_truncator(uint8_t size) {
   uint32_t truncator = 0;
@@ -19,8 +20,8 @@ uint32_t MSP430::GPRegisterX::get_value(uint8_t, uint8_t size) {
   return this->value & get_truncator(size);
 }
 
-void MSP430::GPRegisterX::set_value(uint32_t value) {
-  this->value = value & 0xFFFFF;
+void MSP430::GPRegisterX::set_value(uint32_t value, uint8_t size) {
+  this->value = value & get_truncator(size);
 }
 
 uint8_t MSP430::SRRegisterX::bit(uint8_t bit) {
@@ -59,8 +60,8 @@ uint32_t MSP430::SRRegisterX::get_value(uint8_t as, uint8_t size) {
   return value & get_truncator(size);
 }
 
-void MSP430::SRRegisterX::set_value(uint32_t value) {
-  this->value = value;
+void MSP430::SRRegisterX::set_value(uint32_t value, uint8_t size) {
+  this->value = value & get_truncator(size);
 }
 
 uint8_t MSP430::SRRegisterX::V() {
@@ -192,6 +193,6 @@ uint32_t MSP430::CG2RegisterX::get_value(uint8_t as, uint8_t size) {
   return value & get_truncator(size);
 }
 
-void MSP430::CG2RegisterX::set_value(uint32_t) {
+void MSP430::CG2RegisterX::set_value(uint32_t, uint8_t) {
   throw std::runtime_error("Can't set CG2 value");
 }

@@ -1,1 +1,1 @@
-add_library(cpu cpu.cpp register.cpp decode.cpp)
+add_library(cpu cpu.cpp register.cpp decode.cpp execute.cpp)

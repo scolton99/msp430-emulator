@@ -11,9 +11,9 @@
 namespace MSP430 {
   class IRegister {
   public:
-    virtual unsigned int get_value(uint8_t, uint8_t) = 0;
-    virtual void         set_value(uint32_t)         = 0;
-    virtual ~IRegister()                             = default;
+    virtual unsigned int get_value(uint8_t,  uint8_t) = 0;
+    virtual void         set_value(uint32_t, uint8_t) = 0;
+    virtual ~IRegister()                              = default;
   };
 
 //  class Register : public IRegister {
@@ -33,8 +33,8 @@ namespace MSP430 {
   class GPRegisterX : public RegisterX {
   public:
     GPRegisterX() = default;
-    uint32_t get_value(uint8_t, uint8_t) override;
-    void     set_value(uint32_t)         override;
+    uint32_t get_value(uint8_t,  uint8_t) override;
+    void     set_value(uint32_t, uint8_t) override;
   };
 
   class SRRegisterX : public RegisterX {
@@ -44,8 +44,8 @@ namespace MSP430 {
     void     clr_bit(uint8_t);
   public:
     SRRegisterX() = default;
-    uint32_t get_value(uint8_t, uint8_t) override;
-    void     set_value(uint32_t)         override;
+    uint32_t get_value(uint8_t,  uint8_t) override;
+    void     set_value(uint32_t, uint8_t) override;
     uint8_t  V();
     uint8_t  SCG0();
     uint8_t  SCG1();
@@ -78,8 +78,8 @@ namespace MSP430 {
   class CG2RegisterX : public RegisterX {
   public:
     CG2RegisterX() = default;
-    uint32_t get_value(uint8_t, uint8_t) override;
-    void     set_value(uint32_t)         override;
+    uint32_t get_value(uint8_t,  uint8_t) override;
+    void     set_value(uint32_t, uint8_t) override;
   };
 }
 

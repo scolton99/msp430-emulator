@@ -2,13 +2,14 @@
 // Created by scolton on 10/12/21.
 //
 
-#include "dev/peripheral/tinyram/tinyram.h"
+#include "types.h"
+#include "dev/peripheral/tinyram.h"
 
 MSP430::TinyRAM::TinyRAM() {
   this->memory.resize(22);
 }
 
-msp430_byte_t MSP430::TinyRAM::get(msp430_addr_t addr) {
+MSP430::msp430_byte_t MSP430::TinyRAM::get(msp430_addr_t addr) {
   if (addr > this->memory.size())
     throw std::runtime_error("Address exceeds TinyRAM size");
 

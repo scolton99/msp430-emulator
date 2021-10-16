@@ -2,7 +2,8 @@
 // Created by scolton on 10/14/21.
 //
 
-#include "prog/isa/instruction.h"
+#include "prog/isa/utils.h"
+#include "types.h"
 
 MSP430::ExtensionWord::ExtensionWord(msp430_word_t word) {
   this->word = word;
@@ -149,7 +150,7 @@ MSP430::InstructionFormat MSP430::OpcodeWidthHolder::opcode_to_format(msp430_wor
       return FORMAT_II;
     }
 
-    if ((instr_id & 0x3) == 0x3 || ((instr_id) & 0x3) == 0b10 && instr_extra == 0b10)
+    if ((instr_id & 0x3) == 0x3 || (((instr_id) & 0x3) == 0b10 && instr_extra == 0b10))
       throw std::runtime_error("Invalid opcode");
 
     return FORMAT_CALLA;

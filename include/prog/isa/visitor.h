@@ -6,15 +6,134 @@
 #define MSP430_EMULATOR_VISITOR_H
 
 #include "dev/model/package.h"
-#include "instruction_fwd.h"
 
 namespace MSP430 {
+  /* Format I Instructions */
+  template <typename msp430_size_t>
+  class ADDInstruction;
+
+  template <typename msp430_size_t>
+  class ADDCInstruction;
+
+  template <typename msp430_size_t>
+  class ANDInstruction;
+
+  template <typename msp430_size_t>
+  class BICInstruction;
+
+  template <typename msp430_size_t>
+  class BITInstruction;
+
+  template <typename msp430_size_t>
+  class BISInstruction;
+
+  template <typename msp430_size_t>
+  class CMPInstruction;
+
+  template <typename msp430_size_t>
+  class DADDInstruction;
+
+  template <typename msp430_size_t>
+  class MOVInstruction;
+
+  template <typename msp430_size_t>
+  class SUBInstruction;
+
+  template <typename msp430_size_t>
+  class SUBCInstruction;
+
+  template <typename msp430_size_t>
+  class XORInstruction;
+
+  /* Format II Instructions */
+  template <typename msp430_size_t>
+  class CALLInstruction;
+
+  template <typename msp430_size_t>
+  class PUSHInstruction;
+
+  template <typename msp430_size_t>
+  class RETIInstruction;
+
+  template <typename msp430_size_t>
+  class RRAInstruction;
+
+  template <typename msp430_size_t>
+  class RRCInstruction;
+
+  template <typename msp430_size_t>
+  class SWPBInstruction;
+
+  template <typename msp430_size_t>
+  class SXTInstruction;
+
+  /* Jump Instructions */
+  template <typename msp430_size_t>
+  class JCInstruction;
+
+  template <typename msp430_size_t>
+  class JEQInstruction;
+
+  template <typename msp430_size_t>
+  class JGEInstruction;
+
+  template <typename msp430_size_t>
+  class JLInstruction;
+
+  template <typename msp430_size_t>
+  class JMPInstruction;
+
+  template <typename msp430_size_t>
+  class JNCInstruction;
+
+  template <typename msp430_size_t>
+  class JNInstruction;
+
+  template <typename msp430_size_t>
+  class JNEInstruction;
+
+  /* MSP430X PUSHM/POPM Instructions */
+  template <typename msp430_size_t>
+  class POPMInstruction;
+
+  template <typename msp430_size_t>
+  class PUSHMInstruction;
+
+  /* MSP430X RRXM Instructions */
+  template <typename msp430_size_t>
+  class RLAMInstruction;
+
+  template <typename msp430_size_t>
+  class RRAMInstruction;
+
+  template <typename msp430_size_t>
+  class RRCMInstruction;
+
+  template <typename msp430_size_t>
+  class RRUMInstruction;
+
+  /* MSP430X CALLA Instruction */
+  template <typename msp430_size_t>
+  class CALLAInstruction;
+
+  /* MSP430X Address Instructions */
+  template <typename msp430_size_t>
+  class ADDAInstruction;
+
+  template <typename msp430_size_t>
+  class CMPAInstruction;
+
+  template <typename msp430_size_t>
+  class MOVAInstruction;
+
+  template <typename msp430_size_t>
+  class SUBAInstruction;
+
   template <typename msp430_size_t>
   class InstructionVisitor {
-  private:
-    Package* package;
   public:
-    explicit InstructionVisitor(Package* package) : package(package) { }
+    InstructionVisitor() = default;
+    virtual ~InstructionVisitor() = default;
 
     virtual void visit(ADDInstruction<msp430_size_t>&)   = 0;
     virtual void visit(ADDCInstruction<msp430_size_t>&)  = 0;
@@ -49,7 +168,7 @@ namespace MSP430 {
     virtual void visit(RRAMInstruction<msp430_size_t>&)  = 0;
     virtual void visit(RRCMInstruction<msp430_size_t>&)  = 0;
     virtual void visit(RRUMInstruction<msp430_size_t>&)  = 0;
-    virtual void visit(RRUXInstruction<msp430_size_t>&)  = 0;
+    virtual void visit(CALLAInstruction<msp430_size_t>&) = 0;
     virtual void visit(ADDAInstruction<msp430_size_t>&)  = 0;
     virtual void visit(CMPAInstruction<msp430_size_t>&)  = 0;
     virtual void visit(MOVAInstruction<msp430_size_t>&)  = 0;

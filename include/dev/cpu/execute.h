@@ -7,13 +7,16 @@
 
 #include "dev/model/package.h"
 #include "prog/isa/visitor.h"
-#include "prog/isa/instruction_fwd.h"
 
 namespace MSP430 {
   template <typename msp430_size_t>
   class InstructionExecutionVisitor : public InstructionVisitor<msp430_size_t> {
+  private:
+    Package* package;
+
   public:
-    explicit InstructionExecutionVisitor(Package* p) : InstructionVisitor<msp430_size_t>(p) { }
+    explicit InstructionExecutionVisitor(Package* p) : InstructionVisitor<msp430_size_t>(), package(p) { }
+    ~InstructionExecutionVisitor() override = default;
 
     void visit(ADDInstruction<msp430_size_t>&   instr) override;
     void visit(ADDCInstruction<msp430_size_t>&  instr) override;
@@ -48,7 +51,7 @@ namespace MSP430 {
     void visit(RRAMInstruction<msp430_size_t>&  instr) override;
     void visit(RRCMInstruction<msp430_size_t>&  instr) override;
     void visit(RRUMInstruction<msp430_size_t>&  instr) override;
-    void visit(RRUXInstruction<msp430_size_t>&  instr) override;
+    void visit(CALLAInstruction<msp430_size_t>& instr) override;
     void visit(ADDAInstruction<msp430_size_t>&  instr) override;
     void visit(CMPAInstruction<msp430_size_t>&  instr) override;
     void visit(MOVAInstruction<msp430_size_t>&  instr) override;

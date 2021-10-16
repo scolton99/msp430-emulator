@@ -1,0 +1,1 @@
+find . -type f | grep -E '\./(include|src|test)/.*\.[ch](pp)?$' | xargs cat | wc -l

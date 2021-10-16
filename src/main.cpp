@@ -2,7 +2,7 @@
 
 #include "dev/model/package.h"
 #include "dev/model/msp430fr5994.h"
-#include "prog/elf.h"
+#include "prog/bin.h"
 
 MSP430::Package* get_device() {
   #ifdef DEV_MODEL_MSP430FR5994
@@ -13,7 +13,6 @@ MSP430::Package* get_device() {
 }
 
 int main() {
-  ELF::ELFObject obj;
-  ELF::ELFObject::fill(&obj, "simple.out");
+  volatile MSP430::Package* device = get_device();
   return 0;
 }
