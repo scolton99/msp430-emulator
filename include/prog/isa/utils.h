@@ -42,11 +42,11 @@ namespace MSP430 {
     msp430_word_t word;
   public:
     explicit ExtensionWord(msp430_word_t);
-    uint8_t get_zc();
+    uint8_t get_zc()           const;
     uint8_t get_rpt(Package*);
-    uint8_t get_al();
-    uint8_t get_src_msn();
-    uint8_t get_dst_msn();
+    uint8_t get_al()           const;
+    uint8_t get_src_msn()      const;
+    uint8_t get_dst_msn()      const;
     bool    is_present();
   };
 

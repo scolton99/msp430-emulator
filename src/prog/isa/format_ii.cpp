@@ -9,13 +9,12 @@
 template <typename msp430_size_t>
 MSP430::InstructionFormatII<msp430_size_t>::InstructionFormatII(msp430_word_t base_instr,
                                                                 msp430_word_t opt_ext) :
-    opt_ext_word(ExtensionWord(opt_ext)) {
-  this->opcode = (base_instr >> 7) & 0x1FF;
-  this->bw     = (base_instr >> 6) & 0x1;
-  this->ad     = (base_instr >> 4) & 0x3;
-  this->rdst   = (base_instr)      & 0xF;
-}
-
+//                                                                opcode      ((base_instr >> 7) & 0x1FF),
+//                                                                bw          ((base_instr >> 6) & 0x1),
+                                                                ad          ((base_instr >> 4) & 0x3),
+                                                                rdst        ((base_instr)      & 0xF),
+                                                                opt_ext_word(ExtensionWord(opt_ext)) { }
+                                                                
 template <typename msp430_size_t>
 bool MSP430::InstructionFormatII<msp430_size_t>::has_extension_word() {
   return this->opt_ext_word.is_present();

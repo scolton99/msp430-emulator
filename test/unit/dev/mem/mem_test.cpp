@@ -47,7 +47,7 @@ void write_and_read_back_bytes(MSP430::MemoryMapping& mapping, MSP430::msp430_ad
   EXPECT_EQ(readback, data);
 
   MSP430::msp430_addr_t offset = package_addr - mapping.package_start;
-  for (int i = 0; i < data.size(); ++i) {
+  for (size_t i = 0; i < data.size(); ++i) {
     MSP430::msp430_byte_t byte = mapping.dev->get(offset + mapping.dev_start + i);
     EXPECT_EQ(byte, data[i]);
   }
@@ -99,7 +99,7 @@ TEST(MemTest, AddressWordTruncationMemoryMapperTest) {
 
   EXPECT_EQ(expected_bytes, actual_bytes);
 
-  for (int i = 0; i < sizeof(MSP430::msp430_addr_word_t); ++i)
+  for (size_t i = 0; i < sizeof(MSP430::msp430_addr_word_t); ++i)
     EXPECT_EQ(mp.get(dev_start + i), expected_bytes[i]);
 
   MSP430::msp430_addr_t read_start = addr + sizeof(MSP430::msp430_addr_word_t);

@@ -6,9 +6,8 @@
 #include "types.h"
 
 template<typename msp430_size_t>
-MSP430::InstructionCALLAFormat<msp430_size_t>::InstructionCALLAFormat(msp430_word_t base_instr) {
-  this->rdst_ext = base_instr & 0xF;
-}
+MSP430::InstructionCALLAFormat<msp430_size_t>::InstructionCALLAFormat(msp430_word_t base_instr) :
+                                                                      rdst_ext(base_instr & 0xF) { }
 
 template<typename msp430_size_t>
 bool MSP430::InstructionCALLAFormat<msp430_size_t>::has_extension_word() {

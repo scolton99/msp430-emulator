@@ -7,10 +7,9 @@
 #include "types.h"
 
 template<typename msp430_size_t>
-MSP430::InstructionRXXMFormat<msp430_size_t>::InstructionRXXMFormat(msp430_word_t base_instr) {
-  this->n1   = (base_instr >> 10) & 0x3;
-  this->rdst = (base_instr)       & 0xF;
-}
+MSP430::InstructionRXXMFormat<msp430_size_t>::InstructionRXXMFormat(msp430_word_t base_instr) :
+                                                                    n1  ((base_instr >> 10) & 0x3),
+                                                                    rdst((base_instr)       & 0xF) { }
 
 template<typename msp430_size_t>
 bool MSP430::InstructionRXXMFormat<msp430_size_t>::has_extension_word() {

@@ -6,11 +6,10 @@
 #include "types.h"
 
 template<typename msp430_size_t>
-MSP430::InstructionAddressFormat<msp430_size_t>::InstructionAddressFormat(msp430_word_t base_instr) {
-  this->dst_ext = (base_instr)      & 0xF;
-  this->id      = (base_instr >> 4) & 0xF;
-  this->src_ext = (base_instr >> 8) & 0xF;
-}
+MSP430::InstructionAddressFormat<msp430_size_t>::InstructionAddressFormat(msp430_word_t base_instr) :
+                                                                          src_ext((base_instr >> 8) & 0xF),
+                                                                          id     ((base_instr >> 4) & 0xF),
+                                                                          dst_ext((base_instr)      & 0xF) { }
 
 template<typename msp430_size_t>
 bool MSP430::InstructionAddressFormat<msp430_size_t>::has_extension_word() {

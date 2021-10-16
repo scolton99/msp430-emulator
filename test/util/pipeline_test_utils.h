@@ -50,6 +50,11 @@ namespace Testing {
     MSP430::msp430_addr_t PC_ORIG = 0x4000;
     MSP430::msp430_addr_t PC_2_ADDR = 0x4002;
 
+    PipelineTest() : package(nullptr),
+                     byte_visitor(nullptr),
+                     word_visitor(nullptr),
+                     addr_word_visitor(nullptr) { }
+
     void SetUp() override {
       this->package = new MockPackage();
       this->package->init();
@@ -74,7 +79,7 @@ namespace Testing {
     }
 
     ~PipelineTest() override {
-      delete this->package;
+      delete package;
       delete byte_visitor;
       delete word_visitor;
       delete addr_word_visitor;

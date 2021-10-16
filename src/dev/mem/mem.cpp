@@ -23,7 +23,7 @@ std::vector<MSP430::msp430_byte_t> MSP430::MemoryMapper::fix_endianness(msp430_s
   std::vector<msp430_byte_t> result;
   result.resize(sizeof(value));
 
-  for (int i = 0; i < sizeof(value); ++i)
+  for (size_t i = 0; i < sizeof(value); ++i)
     result[i] = (value >> (8 * i)) & 0xFF;
 
   return result;
@@ -33,7 +33,7 @@ template<typename msp430_size_t>
 msp430_size_t MSP430::MemoryMapper::unfix_endianness(const msp430_bytes& value) {
   msp430_size_t result = 0;
 
-  for (int i = 0; i < value.size(); ++i)
+  for (size_t i = 0; i < value.size(); ++i)
     result |= value[i] << (8 * i);
 
   return result;

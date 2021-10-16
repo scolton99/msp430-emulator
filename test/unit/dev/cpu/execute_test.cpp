@@ -2,7 +2,7 @@
 // Created by scolton on 10/15/21.
 //
 
-#include <gtest/gtest.h>
+//#include <gtest/gtest.h>
 
 /* TODO: make tests for each instruction execution
  *

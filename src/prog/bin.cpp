@@ -6,10 +6,11 @@
 #include <istream>
 #include <fstream>
 #include <string>
-#include <elf.h>
+#include <stdexcept>
+#include "elf.h"
 #include "prog/bin.h"
 
-#define PTR_SZ_PAIR(obj, param) reinterpret_cast<char *>(&(obj.param)), sizeof(obj.param)
+#define PTR_SZ_PAIR(obj, param) reinterpret_cast<char *>(&((obj).param)), sizeof((obj).param)
 
 void BIN::ELFObject::fill(BIN::ELFObject* elf, const std::string& filename) {
   std::ifstream file(filename, std::ios::binary | std::ios::in);
@@ -65,7 +66,7 @@ void BIN::ELFObject::fill(BIN::ELFObject* elf, const std::string& filename) {
     std::vector<char> section_content;
     section_content.resize(program_header.p_memsz);
     file.seekg(program_header.p_offset);
-    file.read(&section_content[0], program_header.p_filesz);
+    file.read(&section_content[0], (signed) program_header.p_filesz);
 
     content[i] = section_content;
 

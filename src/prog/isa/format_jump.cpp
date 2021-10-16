@@ -7,11 +7,9 @@
 #include "types.h"
 
 template <typename msp430_size_t>
-MSP430::InstructionJumpFormat<msp430_size_t>::InstructionJumpFormat(msp430_word_t base_instr) {
-  this->opcode    = (base_instr >> 13) & 0x7;
-  this->condition = (base_instr >> 10) & 0x7;
-  this->offset    = (base_instr)       & 0x3FF;
-}
+MSP430::InstructionJumpFormat<msp430_size_t>::InstructionJumpFormat(msp430_word_t base_instr) : opcode   ((base_instr >> 13) & 0x7),
+                                                                                                condition((base_instr >> 10) & 0x7),
+                                                                                                offset   ((base_instr)       & 0x3FF) { }
 
 template <typename msp430_size_t>
 bool MSP430::InstructionJumpFormat<msp430_size_t>::has_extension_word() {

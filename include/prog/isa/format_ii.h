@@ -11,10 +11,10 @@ namespace MSP430 {
   template <typename msp430_size_t>
   class InstructionFormatII : public Instruction<msp430_size_t> {
   protected:
-    uint16_t opcode:9;
-    uint8_t bw:1;
-    uint8_t ad:2;
-    uint8_t rdst:4;
+//    uint16_t opcode : 9;
+//    uint8_t  bw     : 1;
+    uint8_t  ad     : 2;
+    uint8_t  rdst   : 4;
 
     ExtensionWord opt_ext_word;
 

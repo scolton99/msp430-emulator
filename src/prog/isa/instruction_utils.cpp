@@ -9,7 +9,7 @@ MSP430::ExtensionWord::ExtensionWord(msp430_word_t word) {
   this->word = word;
 }
 
-uint8_t MSP430::ExtensionWord::get_al() {
+uint8_t MSP430::ExtensionWord::get_al() const {
   return (this->word >> 6) & 0b1;
 }
 
@@ -20,15 +20,15 @@ uint8_t MSP430::ExtensionWord::get_rpt(Package* package) {
   return use_reg ? package->get_cpu()->resolve_register(n1rn)->get_value(0x0, 0x1) & 0xF : n1rn;
 }
 
-uint8_t MSP430::ExtensionWord::get_zc() {
+uint8_t MSP430::ExtensionWord::get_zc() const {
   return (this->word >> 8) & 0b1;
 }
 
-uint8_t MSP430::ExtensionWord::get_src_msn() {
+uint8_t MSP430::ExtensionWord::get_src_msn() const {
   return (this->word >> 7) & 0xF;
 }
 
-uint8_t MSP430::ExtensionWord::get_dst_msn() {
+uint8_t MSP430::ExtensionWord::get_dst_msn() const {
   return (this->word) & 0xF;
 }
 

@@ -3,7 +3,6 @@
 //
 
 #include "dev/model/package.h"
-#include "dev/mem/mem.h"
 #include "dev/cpu/decode.h"
 #include "prog/isa/instructions.h"
 

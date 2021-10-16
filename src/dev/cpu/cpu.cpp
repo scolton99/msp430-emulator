@@ -2,10 +2,9 @@
 // Created by scolton on 10/10/21.
 //
 
+#include <stdexcept>
 #include "dev/cpu/cpu.h"
 #include "dev/cpu/decode.h"
-#include "dev/cpu/execute.h"
-#include "prog/isa/instruction.h"
 
 MSP430::IRegister* MSP430::CPUX::resolve_register(uint8_t reg_num) {
   switch(reg_num) {
@@ -123,7 +122,7 @@ void MSP430::CPUX::tick() {
         MSP430::Instruction<msp430_word_t>*        instruction = instruction_decode<msp430_word_t>(this->package,
                                                                                                    instr_addr);
 
-        instruction_ticks_remaining      = instruction->get_execution_time();
+        instruction_ticks_remaining = instruction->get_execution_time();
         instruction->accept(visitor);
         break;
       }
@@ -132,7 +131,7 @@ void MSP430::CPUX::tick() {
         MSP430::Instruction<msp430_addr_word_t>*        instruction = instruction_decode<msp430_addr_word_t>(this->package,
                                                                                                              instr_addr);
 
-        instruction_ticks_remaining      = instruction->get_execution_time();
+        instruction_ticks_remaining = instruction->get_execution_time();
         instruction->accept(visitor);
         break;
       }

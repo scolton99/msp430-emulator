@@ -9,12 +9,11 @@
 template <typename msp430_size_t>
 MSP430::InstructionFormatI<msp430_size_t>::InstructionFormatI(msp430_word_t base_instr,
                                                               msp430_word_t opt_ext) :
-    opt_ext_word(ExtensionWord(opt_ext)) {
-  this->rsrc   = (base_instr >> 8)  & 0xF;
-  this->ad     = (base_instr >> 7)  & 0x1;
-  this->as     = (base_instr >> 4)  & 0x3;
-  this->rdst   = (base_instr)       & 0xF;
-}
+    rsrc((base_instr >> 8) & 0xF),
+    as  ((base_instr >> 4) & 0x3),
+    ad  ((base_instr >> 7) & 0x1),
+    rdst((base_instr)      & 0xF),
+    opt_ext_word(ExtensionWord(opt_ext)) { }
 
 template <typename msp430_size_t>
 bool MSP430::InstructionFormatI<msp430_size_t>::has_extension_word() {
@@ -72,7 +71,7 @@ msp430_size_t MSP430::InstructionFormatI<msp430_size_t>::get_src_value(Package* 
                             this->rsrc,
                             this->as,
                             this->opt_ext_word.get_src_msn(),
-                            this->is_extended());;
+                            this->is_extended());
 }
 
 template<typename msp430_size_t>
